@@ -19,7 +19,7 @@ public class ShoppingService {
         this.shoppingRepo = shoppingRepo;
     }
 
-    public ShoppingDTO createShopping(Shopping shopping) {
-        return mapper.map(shoppingRepo.save(shopping), ShoppingDTO.class );
+    public ShoppingDTO createShopping(Shopping input) {
+        return mapper.map(shoppingRepo.save(input), ShoppingDTO.class);
     }
 }

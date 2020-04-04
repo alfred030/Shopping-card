@@ -21,7 +21,7 @@ public class Shopping {
     @Column
     long price;
 
-    public Shopping(long l, Expense expensive, String brown_cat_watch, String cat_watch, Activity active, int i) {
+    public Shopping(){
     }
 
     public Shopping(Expense expense, String description, String name, Activity activity, long price){
@@ -90,5 +90,23 @@ public class Shopping {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Shopping)) return false;
+        Shopping shopping = (Shopping) o;
+        return Objects.equals(id, shopping.id) &&
+                expense == shopping.expense &&
+                Objects.equals(description, shopping.description) &&
+                Objects.equals(name, shopping.name) &&
+                activity == shopping.activity &&
+                Objects.equals(price, shopping.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, expense, description, name, activity, price);
     }
 }

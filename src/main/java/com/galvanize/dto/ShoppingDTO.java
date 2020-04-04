@@ -1,5 +1,7 @@
 package com.galvanize.dto;
 
+import java.util.Objects;
+
 public class ShoppingDTO {
     String name;
     String description;
@@ -36,5 +38,29 @@ public class ShoppingDTO {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShoppingDTO shoppingDTO = (ShoppingDTO) o;
+        return Objects.equals(getName(), shoppingDTO.getName()) &&
+                Objects.equals(getDescription(), shoppingDTO.getDescription()) &&
+                Objects.equals(getPrice(), shoppingDTO.getPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, price);
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
