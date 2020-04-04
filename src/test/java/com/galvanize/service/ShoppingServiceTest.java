@@ -6,13 +6,16 @@ import com.galvanize.entity.Expense;
 import com.galvanize.entity.Shopping;
 import com.galvanize.repository.ShoppingRepo;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -20,6 +23,8 @@ import static org.mockito.Mockito.when;
 public class ShoppingServiceTest {
     @MockBean
     ShoppingRepo shoppingRepo;
+
+    ModelMapper mapper = new ModelMapper();
 
     @Test
     public void createShopping(){
@@ -30,5 +35,14 @@ public class ShoppingServiceTest {
         received.setId(1L);
         when(shoppingRepo.save(any(Shopping.class))).thenReturn(received);
         assertEquals(expected, shoppingService.createShopping(input));
+    }
+
+    @Test
+    public void getShopById(){
+        ShoppingService shoppingService = new ShoppingService(shoppingRepo);
+        Shopping expected = new Shopping(Expense.EXPENSIVE, "Description", "Name", Activity.ACTIVE, 101);
+        expected.setId(1L);
+        when(shoppingRepo.findById(anyLong())).thenReturn(Optional.of(expected));
+        assertEquals(mapper.map(expected,ShoppingDTO.class),shoppingService.getShoppingById(expected.getId()));
     }
 }

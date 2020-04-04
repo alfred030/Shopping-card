@@ -15,11 +15,15 @@ public class ShoppingService {
 
     ModelMapper mapper = new ModelMapper();
 
-    public ShoppingService(ShoppingRepo shoppingRepo){
+    public ShoppingService(ShoppingRepo shoppingRepo) {
         this.shoppingRepo = shoppingRepo;
     }
 
     public ShoppingDTO createShopping(Shopping input) {
         return mapper.map(shoppingRepo.save(input), ShoppingDTO.class);
+    }
+
+    public ShoppingDTO getShoppingById(Long id) {
+        return mapper.map(shoppingRepo.findById(id).orElse(null), ShoppingDTO.class);
     }
 }
