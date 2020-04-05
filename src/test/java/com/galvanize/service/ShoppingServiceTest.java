@@ -7,13 +7,15 @@ import com.galvanize.entity.Shopping;
 import com.galvanize.repository.ShoppingRepo;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -26,6 +28,10 @@ public class ShoppingServiceTest {
 
     ModelMapper mapper = new ModelMapper();
 
+    @Autowired
+    ShoppingService shoppingService;
+    Shopping testShopping;
+
     @Test
     public void createShopping(){
         ShoppingService shoppingService = new ShoppingService(shoppingRepo);
@@ -35,6 +41,21 @@ public class ShoppingServiceTest {
         received.setId(1L);
         when(shoppingRepo.save(any(Shopping.class))).thenReturn(received);
         assertEquals(expected, shoppingService.createShopping(input));
+    }
+
+    @Test
+    public void getAllShops(){
+        // Create a test customer
+        testShopping = new Shopping(Expense.EXPENSIVE,"test", "customer", Activity.ACTIVE, 10 );
+        testShopping.setName("customer");
+        shoppingRepo.save(testShopping);
+        assertNotNull(testShopping.getId());
+
+
+        List<Shopping> shopping = shoppingService.getAllShops();
+        assertFalse(shopping.isEmpty());
+
+        System.out.println(shopping);
     }
 
     @Test

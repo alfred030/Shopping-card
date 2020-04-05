@@ -20,4 +20,15 @@ public class ShoppingControllerTest {
     @Autowired
     ShoppingService shoppingService;
     ObjectMapper objectMapper = new ObjectMapper();
+
+    @Test
+    public void createShopping() throws Exception {
+        Shopping expected = new Shopping();
+        ShoppingDTO shoppingDTO = new ShoppingDTO();
+        when(shoppingService.createShopping(any(Shopping.class))).thenReturn(shoppingDTO);
+        mvc.perform(post("/api/shop").content(objectMapper.writeValueAsString(Shopping.class)).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.Id").value(expected.getId()));
+
+    }
 }

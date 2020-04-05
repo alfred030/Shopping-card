@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,4 +27,10 @@ public class ShoppingService {
     public ShoppingDTO getShoppingById(Long id) {
         return mapper.map(shoppingRepo.findById(id).orElse(null), ShoppingDTO.class);
     }
+
+    public Shopping getAllShops(Long id) {
+        Optional<Shopping> shopping = shoppingRepo.findById(id);
+        return shopping.orElse(null);
+    }
 }
+

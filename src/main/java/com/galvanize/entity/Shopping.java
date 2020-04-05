@@ -3,7 +3,6 @@ package com.galvanize.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-
 @Entity
 @Table(name = "shopping")
 public class Shopping {
