@@ -36,4 +36,16 @@ public class ShoppingService {
         // method should return a list, not an object
         return shoppingList;
     }
+
+    public ShoppingDTO updateShopperById(Long id, Shopping activity) {
+        Shopping shopper = shoppingRepo.findById(id).orElse(null);
+        shopper.getActivity();
+        return mapper.map(shoppingRepo.save(shopper), ShoppingDTO.class);
+    }
+
+//    public ShoppingDTO deleteShopperById(long id) {
+//        Shopping shopper = shoppingRepo.deleteById(id);
+//        shopper.getActivity();
+//        return mapper.map(shoppingRepo.save(shopper), ShoppingDTO.class);
+//    }
 }

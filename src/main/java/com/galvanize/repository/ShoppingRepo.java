@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShoppingRepo extends JpaRepository<Shopping, Long> {
+    boolean deleteById(long Id);
 }
