@@ -28,19 +28,34 @@ public class ShoppingController {
         return shoppingService.getAllShops();
     }
 
+//    @GetMapping
+//    public List<Movie> getAllMovies(){
+//        return movieService.getAllMovies();
+//    }
+
    @GetMapping("/{id}")
     public ShoppingDTO getShoppingById(@PathVariable long id){
         return shoppingService.getShoppingById(id);
     }
 
-//    @DeleteMapping("/{id}")
-//    public ShoppingDTO updateShopper(@PathVariable long id){
-//
-//        return (ShoppingDTO) shoppingService.deleteByShopperId(id);
-//    }
-
 //    @PutMapping("/name/{Id}")
 //    public ShoppingDTO updateShopperById(@PathVariable long Id, @RequestBody Shopping shopping){
 //        return shoppingService.updateShopperById(Id, shopping);
+//    }
+
+//    @PutMapping("/rating/{movieId}")
+//    public Movie updateMovieWithStarRating(@PathVariable long movieId, @RequestBody Movie movie){
+//        return movieService.updateMovieWithStarRating(movieId, movie);
+//    }
+
+//    @DeleteMapping("/{id}")
+//    public BooleanSupplier updateShopper(@PathVariable long id){
+//        return shoppingService.deleteByShopperId(id);
+//    }
+
+
+//    @DeleteMapping("/{id}")
+//    public boolean updateMovie(@PathVariable long id){
+//        return movieService.deleteById(id);
 //    }
 }
