@@ -77,11 +77,9 @@ public class ShoppingServiceTest {
     }
 
     @Test
-    public void deleteShoppingMethod(){
+    public void deleteByShopperId(){
         ShoppingService shoppingService = new ShoppingService(shoppingRepo);
-        Shopping expected = new Shopping((Expense.EXPENSIVE, "desccriptive", "new name", Activity.ACTIVE, 101));
-        expected.setId(1L);
-        when(shoppingRepo.deleteById(anyLong())).thenReturn(Optional.of());
-        assertEquals(mapper.map(expected, ShoppingDTO.class),shoppingService.getShoppingById(expected.getId()));
+        when(shoppingRepo.deleteByShopperId(anyLong())).thenReturn(1);
+        assertNull(shoppingService.deleteByShopperId(1L));
     }
 }

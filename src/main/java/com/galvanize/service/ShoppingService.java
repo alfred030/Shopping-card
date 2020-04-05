@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 @Service
 @Transactional
@@ -43,9 +44,7 @@ public class ShoppingService {
         return mapper.map(shoppingRepo.save(shopper), ShoppingDTO.class);
     }
 
-//    public ShoppingDTO deleteShopperById(long id) {
-//        Shopping shopper = shoppingRepo.deleteById(id);
-//        shopper.getActivity();
-//        return mapper.map(shoppingRepo.save(shopper), ShoppingDTO.class);
-//    }
+    public BooleanSupplier deleteByShopperId(long id) {
+        return (BooleanSupplier) mapper.map(shoppingRepo.deleteByShopperId(id)==1, ShoppingDTO.class);
+    }
 }
