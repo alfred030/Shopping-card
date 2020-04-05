@@ -76,12 +76,12 @@ public class ShoppingServiceTest {
         assertEquals(mapper.map(expected, ShoppingDTO.class),shoppingService.getShoppingById(expected.getId()));
     }
 
-//    @Test
-//    public void deleteShoppingMethod(){
-//        ShoppingService shoppingService = new ShoppingService(shoppingRepo);
-//        Shopping expected = new Shopping((Expense.EXPENSIVE, "desccriptive", "new name", Activity.ACTIVE, 101));
-//        expected.setId(1L);
-//        when(shoppingRepo.deleteById(anyLong())).thenReturn(Optional.of(expected));
-//        assertEquals(mapper.map(expected, ShoppingDTO.class),shoppingService.getShoppingById(expected.getId()));
-//    }
+    @Test
+    public void deleteShoppingMethod(){
+        ShoppingService shoppingService = new ShoppingService(shoppingRepo);
+        Shopping expected = new Shopping((Expense.EXPENSIVE, "desccriptive", "new name", Activity.ACTIVE, 101));
+        expected.setId(1L);
+        when(shoppingRepo.deleteById(anyLong())).thenReturn(Optional.of());
+        assertEquals(mapper.map(expected, ShoppingDTO.class),shoppingService.getShoppingById(expected.getId()));
+    }
 }
