@@ -44,10 +44,10 @@ public class ShoppingDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShoppingDTO shoppingDTO = (ShoppingDTO) o;
-        return Objects.equals(getName(), shoppingDTO.getName()) &&
-                Objects.equals(getDescription(), shoppingDTO.getDescription()) &&
-                Objects.equals(getPrice(), shoppingDTO.getPrice());
+        ShoppingDTO that = (ShoppingDTO) o;
+        return price == that.price &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description);
     }
 
     @Override

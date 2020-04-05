@@ -4,7 +4,7 @@ import com.galvanize.dto.ShoppingDTO;
 import com.galvanize.entity.Activity;
 import com.galvanize.entity.Expense;
 import com.galvanize.entity.Shopping;
-import com.galvanize.repository.ShoppingRepo;
+import com.galvanize.repository.ShoppingRepository;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 @Transactional
 public class ShoppingServiceTest {
     @MockBean
-    ShoppingRepo shoppingRepo;
+    ShoppingRepository shoppingRepository;
 
     ModelMapper mapper = new ModelMapper();
 
@@ -34,12 +34,12 @@ public class ShoppingServiceTest {
 
     @Test
     public void createShopping(){
-        ShoppingService shoppingService = new ShoppingService(shoppingRepo);
+        ShoppingService shoppingService = new ShoppingService(shoppingRepository);
         Shopping input = new Shopping(Expense.EXPENSIVE, "Description", "Name", Activity.ACTIVE, 101);
         ShoppingDTO expected = new ShoppingDTO(input.getName(), input.getDescription(), input.getPrice());
         Shopping received = new Shopping(input.getExpense(), input.getDescription(), input.getName(), input.getActivity(), input.getPrice());
-        received.setId(1L);
-        when(shoppingRepo.save(any(Shopping.class))).thenReturn(received);
+        received.setShopperId(1L);
+        when(shoppingRepository.save(any(Shopping.class))).thenReturn(received);
         assertEquals(expected, shoppingService.createShopping(input));
     }
 
@@ -48,8 +48,8 @@ public class ShoppingServiceTest {
         // Create a test customer
         testShopping = new Shopping(Expense.EXPENSIVE,"test", "customer", Activity.ACTIVE, 10 );
         testShopping.setName("customer");
-        shoppingRepo.save(testShopping);
-        assertNotNull(testShopping.getId());
+        shoppingRepository.save(testShopping);
+        assertNotNull(testShopping.getShopperId());
 
 
         List<Shopping> shopping = shoppingService.getAllShops();
@@ -60,26 +60,26 @@ public class ShoppingServiceTest {
 
     @Test
     public void getShopById(){
-        ShoppingService shoppingService = new ShoppingService(shoppingRepo);
+        ShoppingService shoppingService = new ShoppingService(shoppingRepository);
         Shopping expected = new Shopping(Expense.EXPENSIVE, "Description", "Name", Activity.ACTIVE, 101);
-        expected.setId(1L);
-        when(shoppingRepo.findById(anyLong())).thenReturn(Optional.of(expected));
-        assertEquals(mapper.map(expected,ShoppingDTO.class),shoppingService.getShoppingById(expected.getId()));
+        expected.setShopperId(1L);
+        when(shoppingRepository.findById(anyLong())).thenReturn(Optional.of(expected));
+        assertEquals(mapper.map(expected,ShoppingDTO.class),shoppingService.getShoppingById(expected.getShopperId()));
     }
 
     @Test
     public void updateShopperById(){
-        ShoppingService shoppingService = new ShoppingService(shoppingRepo);
+        ShoppingService shoppingService = new ShoppingService(shoppingRepository);
         Shopping expected = new Shopping((Expense.EXPENSIVE), "desccriptive", "new name", Activity.ACTIVE, 101);
-        expected.setId(1L);
-        when(shoppingRepo.findById(anyLong())).thenReturn(Optional.of(expected));
-        assertEquals(mapper.map(expected, ShoppingDTO.class),shoppingService.getShoppingById(expected.getId()));
+        expected.setShopperId(1L);
+        when(shoppingRepository.findById(anyLong())).thenReturn(Optional.of(expected));
+        assertEquals(mapper.map(expected, ShoppingDTO.class),shoppingService.getShoppingById(expected.getShopperId()));
     }
 
     @Test
     public void deleteByShopperId(){
-        ShoppingService shoppingService = new ShoppingService(shoppingRepo);
-        when(shoppingRepo.deleteByShopperId(anyLong())).thenReturn(1);
+        ShoppingService shoppingService = new ShoppingService(shoppingRepository);
+        when(shoppingRepository.deleteByShopperId(anyLong())).thenReturn(1);
         assertNull(shoppingService.deleteByShopperId(1L));
     }
 }

@@ -3,27 +3,25 @@ package com.galvanize.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "shopping")
+@Entity(name = "shopping")
 public class Shopping {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    @Column(name = "shooperId")
+    private long shopperId;
     @Enumerated(EnumType.STRING)
-    Expense expense;
-    @Column
-    String description;
-    @Column
-    String name;
+    private Expense expense;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "name")
+    private String name;
     @Enumerated(EnumType.STRING)
-    Activity activity;
-    @Column
-    long price;
-
-    public Shopping(){
-    }
+    private Activity activity;
+    @Column(name = "price")
+    private long price;
 
     public Shopping(Expense expense, String description, String name, Activity activity, long price){
+        this.shopperId = shopperId;
         this.expense = expense;
         this.description = description;
         this.name = name;
@@ -31,10 +29,21 @@ public class Shopping {
         this.price = price;
     }
 
+    public Shopping(long shopperId, Expense expense, String description, String name, Activity activity, long price){
+        this.expense = expense;
+        this.description = description;
+        this.name = name;
+        this.activity = activity;
+        this.price = price;
+    }
+
+    public Shopping(){
+    }
+
     @Override
     public String toString() {
         return "Shopping{" +
-                "id=" + id +
+                "id=" + shopperId +
                 ", expense=" + expense +
                 ", description='" + description + '\'' +
                 ", name='" + name + '\'' +
@@ -43,12 +52,12 @@ public class Shopping {
                 '}';
     }
 
-    public long getId() {
-        return id;
+    public long getShopperId() {
+        return shopperId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setShopperId(long id) {
+        this.shopperId = id;
     }
 
     public Expense getExpense() {
@@ -96,7 +105,7 @@ public class Shopping {
         if (this == o) return true;
         if (!(o instanceof Shopping)) return false;
         Shopping shopping = (Shopping) o;
-        return Objects.equals(id, shopping.id) &&
+        return Objects.equals(shopperId, shopping.shopperId) &&
                 expense == shopping.expense &&
                 Objects.equals(description, shopping.description) &&
                 Objects.equals(name, shopping.name) &&
@@ -106,6 +115,6 @@ public class Shopping {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, expense, description, name, activity, price);
+        return Objects.hash(shopperId, expense, description, name, activity, price);
     }
 }
