@@ -11,10 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,25 +46,24 @@ public class ShoppingControllerTest {
                 .andExpect(jsonPath("$").value(expected));
     }
 
-//    @Test
-//    public void getAllShops() throws Exception {
-//        ShoppingDTO expected = new ShoppingDTO();
-//        List<ShoppingDTO> shoppingDTO = new ArrayList<>();
-//        shoppingDTO.add(expected);
-//        mvc.perform(get("/api/shop"))
-//                .andExpect(status().isOk())
-//                .andExpect((ResultMatcher) jsonPath("$[0].name").value("Sami Akhtar"));
-//    }
+    @Test
+    public void getAllShops() throws Exception {
+        ShoppingDTO expected = new ShoppingDTO();
+        List<ShoppingDTO> shoppingDTO = new ArrayList<>();
+        shoppingDTO.add(expected);
+        mvc.perform(get("/api/shop"))
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("$[0].name").value(expected.getName()));
+    }
 
-
-//    @Test
-//    public void getShopperById() throws Exception {
-//        ShoppingDTO expected = new ShoppingDTO();
-//        when(shoppingService.getShoppingById(anyLong())).thenReturn(expected);
-//        mvc.perform(get("/api/shop/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$").value(expected));
-//    }
+    @Test
+    public void getShopperById() throws Exception {
+        ShoppingDTO expected = new ShoppingDTO();
+        when(shoppingService.getShoppingById(anyLong())).thenReturn(expected);
+        mvc.perform(get("/api/shop/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(expected));
+    }
 
 //    @Test
 //    public void deleteShoppingById() throws Exception {
