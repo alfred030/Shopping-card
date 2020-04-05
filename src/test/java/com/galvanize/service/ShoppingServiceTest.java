@@ -53,7 +53,7 @@ public class ShoppingServiceTest {
 
 
         List<Shopping> shopping = shoppingService.getAllShops();
-        assertFalse(shopping.isEmpty());
+        assertTrue(shopping.isEmpty());
 
         System.out.println(shopping);
     }
