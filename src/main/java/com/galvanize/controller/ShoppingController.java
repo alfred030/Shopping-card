@@ -5,6 +5,8 @@ import com.galvanize.entity.Shopping;
 import com.galvanize.service.ShoppingService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/shop")
 public class ShoppingController {
@@ -19,16 +21,16 @@ public class ShoppingController {
         return shoppingService.createShopping(shopping);
     }
 
-    @GetMapping("/{id}")
-    public ShoppingDTO getShoppingById(@PathVariable long id){
-        return shoppingService.getShoppingById(id);
+    @GetMapping
+    public List<Shopping> getAllShops(){
+        return shoppingService.getAllShops();
     }
 
-//    @GetMapping
-//    public List<Shopping> getAllShops(){
-//        return shoppingService.getAllShops();
+//   @GetMapping("/{id}")
+//    public ShoppingDTO getShoppingById(@PathVariable long id){
+//        return shoppingService.getShoppingById(id);
 //    }
-//
+
 //    @DeleteMapping("/{id}")
 //    public ShoppingDTO updateShopper(@PathVariable long id){
 //
