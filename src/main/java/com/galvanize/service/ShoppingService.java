@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
@@ -38,10 +39,10 @@ public class ShoppingService {
         return shoppingList;
     }
 
-    public ShoppingDTO updateShopperById(Long id, Shopping activity) {
+    public Shopping updateShopperById(Long id, Shopping activity) {
         Shopping shopper = shoppingRepository.findById(id).orElse(null);
         shopper.getActivity();
-        return mapper.map(shoppingRepository.save(shopper), ShoppingDTO.class);
+        return mapper.map(shoppingRepository.save(shopper), (Type) ShoppingDTO.class);
     }
 
     public BooleanSupplier deleteByShopperId(long id) {

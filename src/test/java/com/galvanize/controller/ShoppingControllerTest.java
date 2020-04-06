@@ -18,8 +18,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,10 +27,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ShoppingControllerTest {
     @Autowired
     MockMvc mvc;
-    ObjectMapper objectMapper = new ObjectMapper();
 
     @MockBean
     ShoppingService shoppingService;
+    ObjectMapper objectMapper = new ObjectMapper();
+
 
     @Test
     void createShopping() throws Exception {
@@ -67,27 +67,16 @@ public class ShoppingControllerTest {
                 .andExpect(jsonPath("$").value(expected));
     }
 
-//    @Test
-//    public void updateMovie() throws Exception {
-//        Shopping expected = new Shopping();
-//        expected.setId(1L);
-//        String json = objectMapper.writeValueAsString(expected);
-//        when(shoppingService.updateShopperById(anyLong(), any(Shopping.class))).thenReturn(expected);
-//        mvc.perform(put("/api/shops/1").content(json).contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.Id").value(expected.getId()));
-//    }
-
-//    @Test
-//    public void updateMovie() throws Exception {
-//        Movie expected = new Movie();
-//        expected.setMovieId(1L);
-//        String json = objectMapper.writeValueAsString(expected);
-//        when(movieService.updateMovieWithStarRating(anyLong(), any(Movie.class))).thenReturn(expected);
-//        mvc.perform(put("/api/movies/rating/1").content(json).contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.movieId").value(expected.getMovieId()));
-//    }
+    @Test
+    public void updateShopper() throws Exception {
+        Shopping expected = new Shopping();
+        expected.setShopperId(1L);
+        String json = objectMapper.writeValueAsString(expected);
+        when(shoppingService.updateShopperById(anyLong(), any(Shopping.class))).thenReturn(expected);
+        mvc.perform(put("/api/shop/name/1").content(json).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.shopperId").value(expected.getShopperId()));
+    }
 
 //    @Test
 //    public void deleteShoppingById() throws Exception {
@@ -95,13 +84,5 @@ public class ShoppingControllerTest {
 //        mvc.perform(delete("/api/shops/1"))
 //                .andExpect(status().isOk())
 //                .andExpect(MockMvcResultMatchers.jsonPath("$").value(true));
-//    }
-
-//    @Test
-//    public void deleteMovieById() throws Exception {
-//        when(movieService.deleteById(anyLong())).thenReturn(true);
-//        mvc.perform(delete("/api/movies/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$").value(true));
 //    }
 }
