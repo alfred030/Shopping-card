@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 @RestController()
 @RequestMapping("/api/shop")
@@ -38,9 +39,10 @@ public class ShoppingController {
     public Shopping updateShopperById(@PathVariable long shopperId, @RequestBody Shopping shopping){
         return shoppingService.updateShopperById(shopperId, shopping);
     }
-
-//    @DeleteMapping("/{id}")
-//    public BooleanSupplier updateShopper(@PathVariable long id){
-//        return shoppingService.deleteByShopperId(id);
-//    }
 }
+
+
+
+
+
+

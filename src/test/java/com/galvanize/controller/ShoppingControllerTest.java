@@ -35,11 +35,16 @@ public class ShoppingControllerTest {
 
     @Test
     void createShopping() throws Exception {
+
+        // Setup
         Shopping expected = new Shopping();
         String json = objectMapper.writeValueAsString(expected);
         ShoppingDTO shop = new ShoppingDTO();
 
         when(shoppingService.createShopping(any(Shopping.class))).thenReturn(shop);
+
+
+        // Exercise
 
         mvc.perform(post("/api/shop").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -60,8 +65,13 @@ public class ShoppingControllerTest {
 
     @Test
     public void getShopperById() throws Exception {
+
+        // Setup
         ShoppingDTO expected = new ShoppingDTO();
         when(shoppingService.getShoppingById(anyLong())).thenReturn(expected);
+
+
+        // Exercise
         mvc.perform(get("/api/shop/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(expected));
@@ -69,20 +79,18 @@ public class ShoppingControllerTest {
 
     @Test
     public void updateShopper() throws Exception {
+
+        // Setup
         Shopping expected = new Shopping();
         expected.setShopperId(1L);
         String json = objectMapper.writeValueAsString(expected);
         when(shoppingService.updateShopperById(anyLong(), any(Shopping.class))).thenReturn(expected);
+
+        // Exercise and Assert
         mvc.perform(put("/api/shop/name/1").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.shopperId").value(expected.getShopperId()));
     }
-
-//    @Test
-//    public void deleteShoppingById() throws Exception {
-//        when(shoppingService.deleteByShopperId(anyLong())).thenReturn(true);
-//        mvc.perform(delete("/api/shops/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$").value(true));
-//    }
 }
+
+
